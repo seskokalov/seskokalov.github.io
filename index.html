@@ -6,6 +6,7 @@
 <title>PhiloStack — ERP Solutions & Business Intelligence</title>
 <meta name="description" content="PhiloStack builds the systems your business runs on. ERP integration, web applications, and business intelligence — engineered in Skopje, serving Europe.">
 <meta name="theme-color" content="#0a0f1a">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0f1a'/%3E%3Ccircle cx='16' cy='13.5' r='6' stroke='%231a5cff' stroke-width='2.4' fill='none'/%3E%3Cline x1='16' y1='4' x2='16' y2='28' stroke='%231a5cff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -22,6 +23,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  (function(){
+    var t = localStorage.getItem('ps-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+      document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
 <style>
   :root {
     --ink: #0a0f1a;
@@ -42,6 +51,64 @@
     --shadow-sm: 0 1px 3px rgba(10,15,26,0.04), 0 1px 2px rgba(10,15,26,0.06);
     --shadow-md: 0 4px 20px rgba(10,15,26,0.06), 0 1px 3px rgba(10,15,26,0.04);
     --shadow-lg: 0 12px 40px rgba(10,15,26,0.08), 0 4px 12px rgba(10,15,26,0.04);
+  }
+
+  /* ── DARK MODE ── */
+  [data-theme="dark"] {
+    --ink: #e8e6e1;
+    --ink-soft: #b8b5af;
+    --ink-muted: #8a8780;
+    --surface: #0e1220;
+    --surface-warm: #141a2c;
+    --surface-card: #1a2038;
+    --accent: #4d82ff;
+    --accent-soft: rgba(77,130,255,0.12);
+    --accent-glow: rgba(77,130,255,0.18);
+    --gold: #d4a83a;
+    --gold-soft: rgba(212,168,58,0.12);
+    --border: rgba(232,230,225,0.08);
+    --border-strong: rgba(232,230,225,0.15);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.2), 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.15);
+  }
+  [data-theme="dark"] body::before { opacity: 0.04; }
+  [data-theme="dark"] nav {
+    background: rgba(14, 18, 32, 0.85);
+  }
+  [data-theme="dark"] .logo-mark {
+    background: var(--accent);
+    color: #fff;
+  }
+  [data-theme="dark"] .nav-cta {
+    background: #e8e6e1 !important;
+    color: #0e1220 !important;
+  }
+  [data-theme="dark"] .nav-cta:hover {
+    background: var(--accent) !important;
+    color: #fff !important;
+  }
+  [data-theme="dark"] .work {
+    background: #060a14;
+  }
+  [data-theme="dark"] .work .section-title {
+    color: #e8e6e1 !important;
+  }
+  [data-theme="dark"] .work .section-desc {
+    color: rgba(232,230,225,0.5);
+  }
+  [data-theme="dark"] footer {
+    background: #060a14;
+  }
+  [data-theme="dark"] .mobile-menu {
+    background: var(--surface);
+  }
+  [data-theme="dark"] .form-group select {
+    color-scheme: dark;
+  }
+
+  .theme-transitioning * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -825,6 +892,72 @@
   .footer-links a { color: rgba(248,247,244,0.4); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: rgba(248,247,244,0.8); }
 
+  /* ── THEME & LANG TOGGLES ── */
+  .nav-toggles {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .theme-toggle {
+    background: none;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--ink-muted);
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: scale(1.05);
+  }
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+  [data-theme="dark"] .icon-sun { display: block; }
+  [data-theme="dark"] .icon-moon { display: none; }
+
+  .lang-toggle {
+    background: none;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50px;
+    padding: 5px 4px;
+    display: flex;
+    gap: 2px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    transition: border-color 0.2s;
+  }
+  .lang-toggle:hover { border-color: var(--ink); }
+  .lang-option {
+    padding: 3px 8px;
+    border-radius: 50px;
+    transition: background 0.2s, color 0.2s;
+    line-height: 1;
+  }
+  .lang-toggle[data-active-lang="en"] .lang-en {
+    background: var(--accent);
+    color: #fff;
+  }
+  .lang-toggle[data-active-lang="mk"] .lang-mk {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .mobile-toggles {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -851,14 +984,29 @@
 <nav>
   <div class="container">
     <a href="#" class="logo">
-      <div class="logo-mark">PS</div>
+      <div class="logo-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="10" r="5.5" stroke="currentColor" stroke-width="2.2" fill="none"/>
+          <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="logo-text">Philo<span>Stack</span></div>
     </a>
     <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get in Touch</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <div class="nav-toggles">
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-toggle" aria-label="Switch language" data-active-lang="en">
+          <span class="lang-option lang-en">EN</span>
+          <span class="lang-option lang-mk">MK</span>
+        </button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.contact">Get in Touch</a>
     </div>
     <button class="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -868,10 +1016,20 @@
 
 <!-- ════ MOBILE MENU ════ -->
 <div class="mobile-menu">
-  <a href="#services">Services</a>
-  <a href="#work">Work</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
+  <div class="mobile-toggles">
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="lang-toggle" aria-label="Switch language" data-active-lang="en">
+      <span class="lang-option lang-en">EN</span>
+      <span class="lang-option lang-mk">MK</span>
+    </button>
+  </div>
+  <a href="#services" data-i18n="nav.services">Services</a>
+  <a href="#work" data-i18n="nav.work">Work</a>
+  <a href="#about" data-i18n="nav.about">About</a>
+  <a href="#contact" data-i18n="nav.contact.mobile">Contact</a>
 </div>
 
 <!-- ════ HERO ════ -->
@@ -882,29 +1040,29 @@
   <div class="container">
     <div class="hero-badge fade-up">
       <span class="hero-badge-dot"></span>
-      Available for new projects
+      <span data-i18n="hero.badge">Available for new projects</span>
     </div>
-    <h1 class="fade-up fade-up-d1">We build the systems<br>your business <em>runs on</em></h1>
-    <p class="hero-sub fade-up fade-up-d2">
+    <h1 class="fade-up fade-up-d1" data-i18n-html="hero.h1">We build the systems<br>your business <em>runs on</em></h1>
+    <p class="hero-sub fade-up fade-up-d2" data-i18n="hero.sub">
       ERP integration, web applications, and business intelligence — engineered by people who understand how businesses actually work.
     </p>
     <div class="hero-actions fade-up fade-up-d3">
       <a href="#contact" class="btn-primary">
-        Start a Conversation
+        <span data-i18n="hero.cta.primary">Start a Conversation</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 8h9m0 0L9 4.5M12.5 8 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="#work" class="btn-secondary">See Our Work</a>
+      <a href="#work" class="btn-secondary" data-i18n="hero.cta.secondary">See Our Work</a>
       <a href="demo.html" class="btn-secondary" style="border-color: var(--accent); color: var(--accent);">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="6,3 13,8 6,13" fill="currentColor"/></svg>
-        ERP Demo
+        <span data-i18n="hero.cta.erp">ERP Demo</span>
       </a>
       <a href="demo-powerbi.html" class="btn-secondary" style="border-color: var(--gold); color: var(--gold);">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="7" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="6.5" y="4" width="3" height="10" rx="0.5" fill="currentColor"/><rect x="11" y="2" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
-        Power BI Demo
+        <span data-i18n="hero.cta.powerbi">Power BI Demo</span>
       </a>
       <a href="demo-webapp.html" class="btn-secondary" style="border-color: #6366f1; color: #6366f1;">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 14h6M8 12v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Web App Demo
+        <span data-i18n="hero.cta.webapp">Web App Demo</span>
       </a>
     </div>
   </div>
@@ -913,7 +1071,7 @@
 <!-- ════ TRUST BAR ════ -->
 <section class="trust-bar">
   <div class="container">
-    <div class="trust-label">Trusted technologies we work with</div>
+    <div class="trust-label" data-i18n="trust.label">Trusted technologies we work with</div>
     <div class="trust-logos-wrap">
       <div class="trust-logos">
         <span class="trust-item">Microsoft SQL Server</span><span class="trust-separator">&#9670;</span>
@@ -940,9 +1098,9 @@
 <!-- ════ SERVICES ════ -->
 <section class="services" id="services">
   <div class="container">
-    <div class="section-label reveal">What We Do</div>
-    <h2 class="section-title reveal">Four pillars, one stack</h2>
-    <p class="section-desc reveal">
+    <div class="section-label reveal" data-i18n="services.label">What We Do</div>
+    <h2 class="section-title reveal" data-i18n="services.title">Four pillars, one stack</h2>
+    <p class="section-desc reveal" data-i18n="services.desc">
       We don't just write code — we understand inventory, invoicing, fiscal compliance, and retail operations from the inside out.
     </p>
     <div class="services-grid">
@@ -950,29 +1108,29 @@
         <div class="service-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
-        <h3>ERP Solutions</h3>
-        <p>Custom development, integration, and consulting for Pantheon ERP and beyond. Stored procedures, triggers, and automations that keep your business flowing.</p>
+        <h3 data-i18n="services.erp.title">ERP Solutions</h3>
+        <p data-i18n="services.erp.desc">Custom development, integration, and consulting for Pantheon ERP and beyond. Stored procedures, triggers, and automations that keep your business flowing.</p>
       </div>
       <div class="service-card reveal reveal-d2">
         <div class="service-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="3"/><line x1="2" y1="9" x2="22" y2="9"/><circle cx="6.5" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="10" cy="6" r="1" fill="currentColor" stroke="none"/></svg>
         </div>
-        <h3>Web Applications</h3>
-        <p>Production-grade ASP.NET Core &amp; Blazor web apps — inventory management, e-commerce, order fulfillment, and POS integration under one roof.</p>
+        <h3 data-i18n="services.web.title">Web Applications</h3>
+        <p data-i18n="services.web.desc">Production-grade ASP.NET Core &amp; Blazor web apps — inventory management, e-commerce, order fulfillment, and POS integration under one roof.</p>
       </div>
       <div class="service-card reveal reveal-d3">
         <div class="service-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         </div>
-        <h3>Business Intelligence</h3>
-        <p>Power BI dashboards, custom SQL views, and data pipelines that turn your raw data into decisions. See your business clearly.</p>
+        <h3 data-i18n="services.bi.title">Business Intelligence</h3>
+        <p data-i18n="services.bi.desc">Power BI dashboards, custom SQL views, and data pipelines that turn your raw data into decisions. See your business clearly.</p>
       </div>
       <div class="service-card reveal reveal-d4">
         <div class="service-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <h3>System Integration</h3>
-        <p>Connecting ERPs with webstores, fiscal printers, courier APIs, and third-party systems. Automate the workflows you're still doing by hand.</p>
+        <h3 data-i18n="services.integration.title">System Integration</h3>
+        <p data-i18n="services.integration.desc">Connecting ERPs with webstores, fiscal printers, courier APIs, and third-party systems. Automate the workflows you're still doing by hand.</p>
       </div>
     </div>
   </div>
@@ -981,29 +1139,33 @@
 <!-- ════ WORK ════ -->
 <section class="work" id="work">
   <div class="container">
-    <div class="section-label reveal">Selected Work</div>
-    <h2 class="section-title reveal" style="color: var(--surface);">Built for real operations</h2>
-    <p class="section-desc reveal">
+    <div class="section-label reveal" data-i18n="work.label">Selected Work</div>
+    <h2 class="section-title reveal" style="color: var(--surface);" data-i18n="work.title">Built for real operations</h2>
+    <p class="section-desc reveal" data-i18n="work.desc">
       Solutions running in production right now — handling real inventory, real transactions, real revenue.
     </p>
     <div class="work-grid">
 
-      <!-- ── ERP Integration Dashboard ── -->
+      <!-- ── Multi-Store Retail Operations Platform ── -->
       <div class="work-card reveal reveal-d1">
         <div class="work-thumb" style="background: #131720;">
           <svg viewBox="0 0 420 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Window chrome -->
             <rect width="420" height="210" rx="8" fill="#151925"/>
             <rect width="420" height="30" rx="8" fill="#1c2135"/>
             <rect y="20" width="420" height="10" fill="#1c2135"/>
             <circle cx="16" cy="15" r="4" fill="#ff5f57" opacity="0.8"/><circle cx="30" cy="15" r="4" fill="#febc2e" opacity="0.8"/><circle cx="44" cy="15" r="4" fill="#28c840" opacity="0.8"/>
             <rect x="65" y="11" width="100" height="8" rx="2" fill="#3a4060"/>
-            <!-- Sidebar -->
+            <!-- Sidebar with module list -->
             <rect y="30" width="72" height="180" fill="#1a1f32"/>
             <rect x="14" y="46" width="44" height="6" rx="2" fill="#1a5cff" opacity="0.7"/>
             <rect x="14" y="62" width="44" height="5" rx="2" fill="#2a3148"/>
             <rect x="14" y="77" width="44" height="5" rx="2" fill="#2a3148"/>
             <rect x="14" y="92" width="44" height="5" rx="2" fill="#2a3148"/>
+            <rect x="14" y="107" width="44" height="5" rx="2" fill="#2a3148"/>
+            <rect x="14" y="122" width="44" height="5" rx="2" fill="#2a3148"/>
+            <rect x="14" y="137" width="44" height="5" rx="2" fill="#2a3148"/>
+            <rect x="14" y="152" width="44" height="5" rx="2" fill="#2a3148"/>
+            <rect x="14" y="167" width="44" height="5" rx="2" fill="#c4922a" opacity="0.4"/>
             <!-- KPI Cards -->
             <rect x="84" y="40" width="102" height="44" rx="6" fill="#1e2438"/>
             <rect x="96" y="50" width="36" height="5" rx="1" fill="#3a4060"/>
@@ -1019,41 +1181,35 @@
             <rect x="96" y="108" width="50" height="5" rx="1" fill="#3a4060"/>
             <rect x="206" y="108" width="40" height="5" rx="1" fill="#3a4060"/>
             <rect x="330" y="108" width="30" height="5" rx="1" fill="#3a4060"/>
-            <!-- Row 1 -->
             <rect x="96" y="124" width="65" height="5" rx="1" fill="#2a3550"/>
             <rect x="206" y="122" width="55" height="8" rx="2" fill="#1a5cff" opacity="0.25"/>
             <circle cx="345" cy="126" r="4" fill="#22c55e"/>
-            <!-- Row 2 -->
             <rect x="96" y="142" width="55" height="5" rx="1" fill="#2a3550"/>
             <rect x="206" y="140" width="42" height="8" rx="2" fill="#1a5cff" opacity="0.25"/>
             <circle cx="345" cy="144" r="4" fill="#22c55e"/>
-            <!-- Row 3 -->
             <rect x="96" y="160" width="72" height="5" rx="1" fill="#2a3550"/>
             <rect x="206" y="158" width="50" height="8" rx="2" fill="#1a5cff" opacity="0.25"/>
             <circle cx="345" cy="162" r="4" fill="#22c55e"/>
-            <!-- Row 4 -->
             <rect x="96" y="178" width="48" height="5" rx="1" fill="#2a3550"/>
             <rect x="206" y="176" width="32" height="8" rx="2" fill="#1a5cff" opacity="0.25"/>
             <circle cx="345" cy="180" r="4" fill="#f59e0b" opacity="0.7"/>
           </svg>
         </div>
         <div class="work-card-body">
-          <span class="work-card-tag">ERP &middot; Retail</span>
-          <h3>Multi-Store Retail ERP Integration</h3>
-          <p>Automated price changes, stock transfers, and POS synchronization across 5+ retail locations with real-time inventory tracking.</p>
+          <span class="work-card-tag" data-i18n="work.card1.tag">Web App &middot; Retail &middot; ERP</span>
+          <h3 data-i18n="work.card1.title">Multi-Store Retail Operations Hub</h3>
+          <p data-i18n="work.card1.desc">25-module platform managing inventory, POS, HR, finance, promotions, and supplier imports across multiple retail locations. Automated price adjustments, stock transfers, real-time dashboards — all wired into the core ERP.</p>
           <div class="work-card-tech">
-            <span>SQL Server</span><span>Pantheon ERP</span><span>T-SQL</span><span>SQL Agent</span>
+            <span>ASP.NET</span><span>SQL Server</span><span>Pantheon ERP</span><span>T-SQL</span><span>SQL Agent</span>
           </div>
         </div>
       </div>
 
-      <!-- ── E-Commerce Platform ── -->
+      <!-- ── E-Commerce with ERP Bridge ── -->
       <div class="work-card reveal reveal-d2">
         <div class="work-thumb" style="background: #f0eeea;">
           <svg viewBox="0 0 420 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Background -->
             <rect width="420" height="210" rx="8" fill="#f5f4f1"/>
-            <!-- Top nav -->
             <rect width="420" height="34" rx="8" fill="#ffffff"/>
             <rect y="22" width="420" height="12" fill="#ffffff"/>
             <rect x="14" y="10" width="48" height="14" rx="3" fill="#0a0f1a"/>
@@ -1069,25 +1225,25 @@
             <rect x="22" y="110" width="48" height="5" rx="1" fill="#0a0f1a" opacity="0.6"/>
             <rect x="22" y="124" width="36" height="4" rx="1" fill="#c8cad0"/>
             <rect x="22" y="134" width="28" height="4" rx="1" fill="#c8cad0"/>
-            <!-- Product Card 1 -->
+            <!-- Loyalty badge -->
+            <rect x="22" y="154" width="58" height="18" rx="9" fill="#c4922a" opacity="0.15"/>
+            <rect x="30" y="160" width="42" height="6" rx="2" fill="#c4922a" opacity="0.6"/>
+            <!-- Product Cards -->
             <rect x="102" y="44" width="147" height="76" rx="6" fill="#ffffff"/>
             <rect x="108" y="50" width="135" height="38" rx="4" fill="#e8e4de"/>
             <rect x="108" y="96" width="56" height="5" rx="1" fill="#0a0f1a" opacity="0.4"/>
             <rect x="108" y="106" width="32" height="6" rx="1" fill="#0a0f1a" opacity="0.7"/>
             <rect x="206" y="104" width="36" height="10" rx="5" fill="#1a5cff"/>
-            <!-- Product Card 2 -->
             <rect x="257" y="44" width="147" height="76" rx="6" fill="#ffffff"/>
             <rect x="263" y="50" width="135" height="38" rx="4" fill="#dce5f0"/>
             <rect x="263" y="96" width="50" height="5" rx="1" fill="#0a0f1a" opacity="0.4"/>
             <rect x="263" y="106" width="38" height="6" rx="1" fill="#0a0f1a" opacity="0.7"/>
             <rect x="362" y="104" width="36" height="10" rx="5" fill="#1a5cff"/>
-            <!-- Product Card 3 -->
             <rect x="102" y="128" width="147" height="72" rx="6" fill="#ffffff"/>
             <rect x="108" y="134" width="135" height="34" rx="4" fill="#f0e6d6"/>
             <rect x="108" y="176" width="60" height="5" rx="1" fill="#0a0f1a" opacity="0.4"/>
             <rect x="108" y="186" width="28" height="6" rx="1" fill="#0a0f1a" opacity="0.7"/>
             <rect x="206" y="184" width="36" height="10" rx="5" fill="#1a5cff"/>
-            <!-- Product Card 4 -->
             <rect x="257" y="128" width="147" height="72" rx="6" fill="#ffffff"/>
             <rect x="263" y="134" width="135" height="34" rx="4" fill="#dde8e2"/>
             <rect x="263" y="176" width="46" height="5" rx="1" fill="#0a0f1a" opacity="0.4"/>
@@ -1096,29 +1252,186 @@
           </svg>
         </div>
         <div class="work-card-body">
-          <span class="work-card-tag">Web App &middot; E-commerce</span>
-          <h3>Fashion E-Commerce Platform</h3>
-          <p>Full-stack Blazor web application connecting online orders directly to ERP fulfillment — from click to shipment.</p>
+          <span class="work-card-tag" data-i18n="work.card2.tag">E-commerce &middot; Integration</span>
+          <h3 data-i18n="work.card2.title">E-Commerce Platform with ERP Bridge</h3>
+          <p data-i18n="work.card2.desc">Full-stack storefront with custom loyalty program, dynamic promotions engine, regional payment gateway, and two-way ERP sync. Every online order flows directly into the ERP for invoicing, fiscal compliance, and fulfillment.</p>
           <div class="work-card-tech">
-            <span>ASP.NET Core</span><span>Blazor</span><span>SQL Server</span><span>REST APIs</span>
+            <span>ASP.NET Core</span><span>SQL Server</span><span>nopCommerce</span><span>REST APIs</span><span>CaSys</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Manufacturing ERP System ── -->
+      <div class="work-card reveal reveal-d3">
+        <div class="work-thumb" style="background: #0f1624;">
+          <svg viewBox="0 0 420 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="420" height="210" rx="8" fill="#111827"/>
+            <!-- Top bar -->
+            <rect width="420" height="28" rx="8" fill="#1a2036"/>
+            <rect y="18" width="420" height="10" fill="#1a2036"/>
+            <rect x="14" y="8" width="70" height="10" rx="3" fill="#1a5cff" opacity="0.6"/>
+            <rect x="96" y="10" width="40" height="6" rx="2" fill="#2a3550"/>
+            <rect x="146" y="10" width="50" height="6" rx="2" fill="#2a3550"/>
+            <rect x="206" y="10" width="35" height="6" rx="2" fill="#2a3550"/>
+            <rect x="251" y="10" width="30" height="6" rx="2" fill="#2a3550"/>
+            <rect x="291" y="10" width="25" height="6" rx="2" fill="#2a3550"/>
+            <rect x="326" y="10" width="35" height="6" rx="2" fill="#2a3550"/>
+            <!-- Module grid - representing breadth -->
+            <!-- Inventory -->
+            <rect x="10" y="38" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="18" y="44" width="28" height="4" rx="1" fill="#1a5cff" opacity="0.5"/>
+            <rect x="18" y="54" width="70" height="6" rx="1" fill="#1a5cff" opacity="0.3"/>
+            <rect x="18" y="66" width="50" height="6" rx="1" fill="#1a5cff" opacity="0.2"/>
+            <rect x="18" y="78" width="60" height="6" rx="1" fill="#1a5cff" opacity="0.15"/>
+            <!-- Production -->
+            <rect x="112" y="38" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="120" y="44" width="32" height="4" rx="1" fill="#22c55e" opacity="0.5"/>
+            <rect x="120" y="54" width="70" height="6" rx="1" fill="#22c55e" opacity="0.3"/>
+            <rect x="120" y="66" width="55" height="6" rx="1" fill="#22c55e" opacity="0.2"/>
+            <rect x="120" y="78" width="65" height="6" rx="1" fill="#22c55e" opacity="0.15"/>
+            <!-- Sales -->
+            <rect x="214" y="38" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="222" y="44" width="25" height="4" rx="1" fill="#c4922a" opacity="0.5"/>
+            <rect x="222" y="54" width="72" height="6" rx="1" fill="#c4922a" opacity="0.3"/>
+            <rect x="222" y="66" width="48" height="6" rx="1" fill="#c4922a" opacity="0.2"/>
+            <rect x="222" y="78" width="58" height="6" rx="1" fill="#c4922a" opacity="0.15"/>
+            <!-- Accounting -->
+            <rect x="316" y="38" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="324" y="44" width="35" height="4" rx="1" fill="#f07d42" opacity="0.5"/>
+            <rect x="324" y="54" width="68" height="6" rx="1" fill="#f07d42" opacity="0.3"/>
+            <rect x="324" y="66" width="55" height="6" rx="1" fill="#f07d42" opacity="0.2"/>
+            <rect x="324" y="78" width="62" height="6" rx="1" fill="#f07d42" opacity="0.15"/>
+            <!-- HR -->
+            <rect x="10" y="98" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="18" y="104" width="18" height="4" rx="1" fill="#a78bfa" opacity="0.5"/>
+            <rect x="18" y="114" width="65" height="6" rx="1" fill="#a78bfa" opacity="0.3"/>
+            <rect x="18" y="126" width="52" height="6" rx="1" fill="#a78bfa" opacity="0.2"/>
+            <rect x="18" y="138" width="58" height="6" rx="1" fill="#a78bfa" opacity="0.15"/>
+            <!-- Procurement -->
+            <rect x="112" y="98" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="120" y="104" width="40" height="4" rx="1" fill="#3bafda" opacity="0.5"/>
+            <rect x="120" y="114" width="72" height="6" rx="1" fill="#3bafda" opacity="0.3"/>
+            <rect x="120" y="126" width="55" height="6" rx="1" fill="#3bafda" opacity="0.2"/>
+            <rect x="120" y="138" width="65" height="6" rx="1" fill="#3bafda" opacity="0.15"/>
+            <!-- QC -->
+            <rect x="214" y="98" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="222" y="104" width="45" height="4" rx="1" fill="#f472b6" opacity="0.5"/>
+            <rect x="222" y="114" width="65" height="6" rx="1" fill="#f472b6" opacity="0.3"/>
+            <rect x="222" y="126" width="50" height="6" rx="1" fill="#f472b6" opacity="0.2"/>
+            <rect x="222" y="138" width="58" height="6" rx="1" fill="#f472b6" opacity="0.15"/>
+            <!-- CRM -->
+            <rect x="316" y="98" width="95" height="52" rx="5" fill="#1a2036"/>
+            <rect x="324" y="104" width="22" height="4" rx="1" fill="#34d399" opacity="0.5"/>
+            <rect x="324" y="114" width="70" height="6" rx="1" fill="#34d399" opacity="0.3"/>
+            <rect x="324" y="126" width="48" height="6" rx="1" fill="#34d399" opacity="0.2"/>
+            <rect x="324" y="138" width="56" height="6" rx="1" fill="#34d399" opacity="0.15"/>
+            <!-- Bottom status bar -->
+            <rect x="10" y="160" width="400" height="40" rx="5" fill="#1a2036"/>
+            <circle cx="28" cy="180" r="5" fill="#22c55e" opacity="0.6"/>
+            <rect x="40" y="177" width="60" height="6" rx="2" fill="#2a3550"/>
+            <circle cx="120" cy="180" r="5" fill="#1a5cff" opacity="0.6"/>
+            <rect x="132" y="177" width="50" height="6" rx="2" fill="#2a3550"/>
+            <circle cx="202" cy="180" r="5" fill="#c4922a" opacity="0.6"/>
+            <rect x="214" y="177" width="55" height="6" rx="2" fill="#2a3550"/>
+            <rect x="340" y="172" width="60" height="16" rx="8" fill="#1a5cff" opacity="0.2"/>
+            <rect x="350" y="177" width="40" height="6" rx="2" fill="#1a5cff" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="work-card-body">
+          <span class="work-card-tag" data-i18n="work.card3.tag">ERP &middot; Manufacturing</span>
+          <h3 data-i18n="work.card3.title">Full-Scale Manufacturing ERP</h3>
+          <p data-i18n="work.card3.desc">Ground-up enterprise system covering procurement, production with BOM and MRP, sales, quality control, HR, payroll, full double-entry accounting, CRM, and project management — with fiscal compliance and workflow automation.</p>
+          <div class="work-card-tech">
+            <span>Blazor</span><span>.NET 10</span><span>SQL Server</span><span>Clean Architecture</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Inventory & Hospitality Management ── -->
+      <div class="work-card reveal reveal-d4">
+        <div class="work-thumb" style="background: #141820;">
+          <svg viewBox="0 0 420 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="420" height="210" rx="8" fill="#161a28"/>
+            <!-- Top bar -->
+            <rect width="420" height="26" rx="8" fill="#1c2038"/>
+            <rect y="16" width="420" height="10" fill="#1c2038"/>
+            <rect x="14" y="7" width="55" height="10" rx="3" fill="#c4922a" opacity="0.5"/>
+            <rect x="80" y="9" width="35" height="6" rx="2" fill="#2a3550"/>
+            <rect x="124" y="9" width="40" height="6" rx="2" fill="#2a3550"/>
+            <rect x="174" y="9" width="30" height="6" rx="2" fill="#2a3550"/>
+            <!-- Left panel: POS / Floor plan -->
+            <rect x="10" y="36" width="200" height="164" rx="6" fill="#1e2438"/>
+            <rect x="18" y="42" width="80" height="5" rx="1" fill="#c4922a" opacity="0.4"/>
+            <!-- Table grid (restaurant floor plan) -->
+            <rect x="22" y="56" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="40" cy="74" r="8" stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <rect x="68" y="56" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="86" cy="74" r="8" stroke="#1a5cff" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <rect x="114" y="56" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="132" cy="74" r="8" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <rect x="160" y="56" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="178" cy="74" r="8" stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <rect x="22" y="100" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="40" cy="118" r="8" stroke="#ef4444" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <rect x="68" y="100" width="82" height="36" rx="6" fill="#253050"/>
+            <rect x="78" y="112" width="62" height="4" rx="1" fill="#1a5cff" opacity="0.3"/>
+            <rect x="78" y="122" width="40" height="4" rx="1" fill="#1a5cff" opacity="0.2"/>
+            <rect x="160" y="100" width="36" height="36" rx="6" fill="#253050"/>
+            <circle cx="178" cy="118" r="8" stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <!-- Receipt / fiscal area -->
+            <rect x="22" y="148" width="82" height="44" rx="4" fill="#253050"/>
+            <rect x="30" y="154" width="50" height="4" rx="1" fill="#3a4060"/>
+            <rect x="30" y="164" width="66" height="3" rx="1" fill="#2a3550"/>
+            <rect x="30" y="172" width="58" height="3" rx="1" fill="#2a3550"/>
+            <rect x="30" y="180" width="40" height="5" rx="1" fill="#22c55e" opacity="0.4"/>
+            <rect x="116" y="148" width="82" height="44" rx="4" fill="#253050"/>
+            <rect x="124" y="154" width="45" height="4" rx="1" fill="#3a4060"/>
+            <rect x="124" y="164" width="66" height="3" rx="1" fill="#2a3550"/>
+            <rect x="124" y="172" width="55" height="3" rx="1" fill="#2a3550"/>
+            <rect x="124" y="180" width="35" height="5" rx="1" fill="#c4922a" opacity="0.4"/>
+            <!-- Right panel: Document / Accounting -->
+            <rect x="218" y="36" width="192" height="80" rx="6" fill="#1e2438"/>
+            <rect x="228" y="42" width="60" height="5" rx="1" fill="#1a5cff" opacity="0.4"/>
+            <rect x="228" y="56" width="170" height="4" rx="1" fill="#2a3550"/>
+            <rect x="228" y="66" width="155" height="4" rx="1" fill="#2a3550"/>
+            <rect x="228" y="76" width="165" height="4" rx="1" fill="#2a3550"/>
+            <rect x="228" y="86" width="130" height="4" rx="1" fill="#2a3550"/>
+            <rect x="228" y="100" width="80" height="8" rx="2" fill="#1a5cff" opacity="0.2"/>
+            <rect x="316" y="100" width="80" height="8" rx="2" fill="#22c55e" opacity="0.2"/>
+            <!-- Chart of Accounts preview -->
+            <rect x="218" y="124" width="192" height="76" rx="6" fill="#1e2438"/>
+            <rect x="228" y="130" width="65" height="5" rx="1" fill="#c4922a" opacity="0.4"/>
+            <rect x="228" y="144" width="140" height="4" rx="1" fill="#2a3550"/>
+            <rect x="378" y="142" width="24" height="8" rx="2" fill="#22c55e" opacity="0.3"/>
+            <rect x="228" y="156" width="120" height="4" rx="1" fill="#2a3550"/>
+            <rect x="378" y="154" width="24" height="8" rx="2" fill="#1a5cff" opacity="0.3"/>
+            <rect x="228" y="168" width="135" height="4" rx="1" fill="#2a3550"/>
+            <rect x="378" y="166" width="24" height="8" rx="2" fill="#c4922a" opacity="0.3"/>
+            <rect x="228" y="180" width="110" height="4" rx="1" fill="#2a3550"/>
+            <rect x="378" y="178" width="24" height="8" rx="2" fill="#22c55e" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="work-card-body">
+          <span class="work-card-tag" data-i18n="work.card4.tag">ERP &middot; Hospitality &middot; POS</span>
+          <h3 data-i18n="work.card4.title">Trade &amp; Hospitality Management System</h3>
+          <p data-i18n="work.card4.desc">Modular ERP with POS and fiscal printer integration, restaurant operations with floor plans and kitchen printing, full chart-of-accounts accounting, production planning with recipes, and automated document generation.</p>
+          <div class="work-card-tech">
+            <span>.NET 8</span><span>Blazor</span><span>SQL Server</span><span>QuestPDF</span><span>Fiscal PF-550</span>
           </div>
         </div>
       </div>
 
       <!-- ── Power BI Dashboard ── -->
-      <div class="work-card reveal reveal-d3">
+      <div class="work-card reveal reveal-d1">
         <div class="work-thumb" style="background: #171b30;">
           <svg viewBox="0 0 420 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Background -->
             <rect width="420" height="210" rx="8" fill="#1a1e35"/>
-            <!-- Header bar -->
             <rect width="420" height="28" rx="8" fill="#232847"/>
             <rect y="18" width="420" height="10" fill="#232847"/>
             <rect x="14" y="8" width="90" height="8" rx="2" fill="#4a5080"/>
             <rect x="290" y="6" width="38" height="14" rx="7" fill="#f2c811" opacity="0.2"/>
             <rect x="334" y="6" width="38" height="14" rx="7" fill="#2a3050"/>
             <rect x="378" y="6" width="30" height="14" rx="7" fill="#2a3050"/>
-            <!-- KPI Cards -->
             <rect x="10" y="38" width="95" height="34" rx="5" fill="#232847"/>
             <rect x="22" y="46" width="30" height="4" rx="1" fill="#4a5080"/>
             <rect x="22" y="56" width="50" height="8" rx="2" fill="#f2c811" opacity="0.8"/>
@@ -1131,16 +1444,13 @@
             <rect x="316" y="38" width="95" height="34" rx="5" fill="#232847"/>
             <rect x="328" y="46" width="30" height="4" rx="1" fill="#4a5080"/>
             <rect x="328" y="56" width="50" height="8" rx="2" fill="#f07d42" opacity="0.8"/>
-            <!-- Bar chart area -->
             <rect x="10" y="82" width="260" height="118" rx="5" fill="#232847"/>
             <rect x="22" y="90" width="60" height="5" rx="1" fill="#4a5080"/>
-            <!-- Grid lines -->
             <line x1="30" y1="106" x2="260" y2="106" stroke="#2a3050" stroke-width="0.5"/>
             <line x1="30" y1="126" x2="260" y2="126" stroke="#2a3050" stroke-width="0.5"/>
             <line x1="30" y1="146" x2="260" y2="146" stroke="#2a3050" stroke-width="0.5"/>
             <line x1="30" y1="166" x2="260" y2="166" stroke="#2a3050" stroke-width="0.5"/>
             <line x1="30" y1="186" x2="260" y2="186" stroke="#2a3050" stroke-width="0.5"/>
-            <!-- Bars -->
             <rect x="38" y="126" width="18" height="60" rx="2" fill="#1a5cff" opacity="0.75"/>
             <rect x="62" y="112" width="18" height="74" rx="2" fill="#1a5cff" opacity="0.75"/>
             <rect x="86" y="136" width="18" height="50" rx="2" fill="#1a5cff" opacity="0.75"/>
@@ -1150,7 +1460,6 @@
             <rect x="182" y="120" width="18" height="66" rx="2" fill="#1a5cff" opacity="0.75"/>
             <rect x="206" y="130" width="18" height="56" rx="2" fill="#1a5cff" opacity="0.75"/>
             <rect x="230" y="140" width="18" height="46" rx="2" fill="#1a5cff" opacity="0.5"/>
-            <!-- Donut chart -->
             <rect x="280" y="82" width="130" height="118" rx="5" fill="#232847"/>
             <rect x="292" y="90" width="56" height="5" rx="1" fill="#4a5080"/>
             <circle cx="345" cy="146" r="34" stroke="#1a5cff" stroke-width="11" fill="none" stroke-dasharray="78 214" transform="rotate(-90 345 146)"/>
@@ -1159,14 +1468,13 @@
             <circle cx="345" cy="146" r="34" stroke="#f07d42" stroke-width="11" fill="none" stroke-dasharray="42 214" stroke-dashoffset="-172" transform="rotate(-90 345 146)"/>
             <circle cx="345" cy="146" r="22" fill="#232847"/>
             <rect x="333" y="142" width="24" height="8" rx="2" fill="#f2c811" opacity="0.6"/>
-            <!-- Legend -->
             <circle cx="295" cy="192" r="3" fill="#1a5cff"/><circle cx="315" cy="192" r="3" fill="#f2c811"/><circle cx="335" cy="192" r="3" fill="#22c55e"/><circle cx="355" cy="192" r="3" fill="#f07d42"/>
           </svg>
         </div>
         <div class="work-card-body">
-          <span class="work-card-tag">Power BI &middot; Analytics</span>
-          <h3>Executive Sales Dashboard</h3>
-          <p>Real-time Power BI reporting across all store locations — revenue, margins, stock levels, and payment analytics in one view.</p>
+          <span class="work-card-tag" data-i18n="work.card5.tag">Power BI &middot; Analytics</span>
+          <h3 data-i18n="work.card5.title">Executive Sales Dashboard</h3>
+          <p data-i18n="work.card5.desc">Real-time Power BI reporting across all store locations — revenue, margins, stock levels, and payment analytics in one view.</p>
           <div class="work-card-tech">
             <span>Power BI</span><span>SQL Views</span><span>DAX</span><span>Scheduled Refresh</span>
           </div>
@@ -1183,19 +1491,19 @@
     <div class="stats-grid">
       <div class="reveal reveal-d1">
         <div class="stat-number" data-count="7" data-suffix="+">0</div>
-        <div class="stat-label">Years in production systems</div>
+        <div class="stat-label" data-i18n="stats.years">Years in production systems</div>
       </div>
       <div class="reveal reveal-d2">
         <div class="stat-number" data-count="50" data-suffix="+">0</div>
-        <div class="stat-label">Stored procedures in production</div>
+        <div class="stat-label" data-i18n="stats.modules">Modules shipped to production</div>
       </div>
       <div class="reveal reveal-d3">
-        <div class="stat-number" data-count="5" data-suffix="">0</div>
-        <div class="stat-label">Retail locations connected</div>
+        <div class="stat-number" data-count="4" data-suffix="">0</div>
+        <div class="stat-label" data-i18n="stats.systems">Full-scale systems delivered</div>
       </div>
       <div class="reveal reveal-d4">
         <div class="stat-number" data-count="24" data-suffix="/7">0</div>
-        <div class="stat-label">Systems running unattended</div>
+        <div class="stat-label" data-i18n="stats.uptime">Systems running unattended</div>
       </div>
     </div>
   </div>
@@ -1204,9 +1512,9 @@
 <!-- ════ TECH STACK ════ -->
 <section class="tech" id="tech">
   <div class="container">
-    <div class="section-label reveal">Technology</div>
-    <h2 class="section-title reveal">Our stack, your advantage</h2>
-    <p class="section-desc reveal">Battle-tested technologies chosen for reliability, not hype.</p>
+    <div class="section-label reveal" data-i18n="tech.label">Technology</div>
+    <h2 class="section-title reveal" data-i18n="tech.title">Our stack, your advantage</h2>
+    <p class="section-desc reveal" data-i18n="tech.desc">Battle-tested technologies chosen for reliability, not hype.</p>
     <div class="tech-pills">
       <div class="tech-pill reveal">
         <div class="tech-pill-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
@@ -1265,29 +1573,29 @@
   <div class="container">
     <div class="about-inner">
       <div>
-        <div class="section-label reveal">Our Story</div>
-        <div class="about-quote reveal">
+        <div class="section-label reveal" data-i18n="about.label">Our Story</div>
+        <div class="about-quote reveal" data-i18n-html="about.quote">
           We named it PhiloStack because we believe great software is built by people who genuinely <em>love the craft</em> — and understand the business behind it.
         </div>
-        <p class="about-text reveal">
+        <p class="about-text reveal" data-i18n="about.text1">
           Based in North Macedonia with clients across Europe, PhiloStack was born from years of building and maintaining the systems that retail businesses depend on every day — from ERP automations and POS integrations to real-time analytics dashboards.
         </p>
-        <p class="about-text reveal">
+        <p class="about-text reveal" data-i18n="about.text2">
           We're not a factory. We're a focused team that goes deep on every project, because we've learned that the details in a stored procedure or a data model are the difference between software that works and software that transforms.
         </p>
       </div>
       <div class="about-origin reveal">
         <div class="about-origin-label">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          The Name
+          <span data-i18n="about.origin.label">The Name</span>
         </div>
         <div class="origin-word">
           <span class="origin-greek">&phi;&iacute;&lambda;&omicron;&sigmaf;</span>
           <span class="origin-phonetic">/&#712;f&#618;.los/</span>
         </div>
-        <div class="origin-meaning">
+        <div class="origin-meaning" data-i18n-html="about.origin.meaning">
           From Greek <strong>philos</strong> — friend, one who loves. Combined with <strong>stack</strong> — your technology foundation.<br><br>
-          Named for Filip, whose name means <strong>"lover of strength."</strong> We bring that same devotion to every system we build.
+          Named for Filip, whose name means <strong>\u201Clover of strength.\u201D</strong> We bring that same devotion to every system we build.
         </div>
       </div>
     </div>
@@ -1297,50 +1605,50 @@
 <!-- ════ CONTACT ════ -->
 <section class="contact" id="contact">
   <div class="container">
-    <div class="section-label reveal">Let's Talk</div>
-    <h2 class="section-title reveal" style="margin-bottom: 48px;">Start a project with us</h2>
+    <div class="section-label reveal" data-i18n="contact.label">Let's Talk</div>
+    <h2 class="section-title reveal" style="margin-bottom: 48px;" data-i18n="contact.title">Start a project with us</h2>
     <div class="contact-inner">
-      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thank you! We\'ll be in touch within 24 hours.');">
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert(window._formSuccessMsg || 'Thank you! We\'ll be in touch within 24 hours.');">
         <div class="form-row">
           <div class="form-group">
-            <label>Name</label>
-            <input type="text" placeholder="Your name" required>
+            <label data-i18n="contact.form.name">Name</label>
+            <input type="text" placeholder="Your name" data-i18n-placeholder="placeholder.name" required>
           </div>
           <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="you@company.com" required>
+            <label data-i18n="contact.form.email">Email</label>
+            <input type="email" placeholder="you@company.com" data-i18n-placeholder="placeholder.email" required>
           </div>
         </div>
         <div class="form-group">
-          <label>What do you need?</label>
+          <label data-i18n="contact.form.service">What do you need?</label>
           <select>
-            <option value="">Select a service...</option>
-            <option>ERP Integration & Consulting</option>
-            <option>Web Application Development</option>
-            <option>Power BI & Business Intelligence</option>
-            <option>System Integration & Automation</option>
-            <option>Something else</option>
+            <option value="" data-i18n="contact.form.service.placeholder">Select a service...</option>
+            <option data-i18n="contact.form.service.erp">ERP Integration & Consulting</option>
+            <option data-i18n="contact.form.service.web">Web Application Development</option>
+            <option data-i18n="contact.form.service.bi">Power BI & Business Intelligence</option>
+            <option data-i18n="contact.form.service.integration">System Integration & Automation</option>
+            <option data-i18n="contact.form.service.other">Something else</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Tell us about your project</label>
-          <textarea placeholder="What systems are you running? What's the challenge you're facing?"></textarea>
+          <label data-i18n="contact.form.message">Tell us about your project</label>
+          <textarea placeholder="What systems are you running? What's the challenge you're facing?" data-i18n-placeholder="placeholder.message"></textarea>
         </div>
         <button type="submit" class="btn-primary" style="align-self: flex-start;">
-          Send Message
+          <span data-i18n="contact.form.submit">Send Message</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 8h9m0 0L9 4.5M12.5 8 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </form>
       <div class="contact-info reveal">
-        <h3>Let's build something<br>that actually works.</h3>
-        <p>No sales pitch. Tell us what you're dealing with and we'll tell you honestly if we can help.</p>
+        <h3 data-i18n-html="contact.info.title">Let's build something<br>that actually works.</h3>
+        <p data-i18n="contact.info.desc">No sales pitch. Tell us what you're dealing with and we'll tell you honestly if we can help.</p>
         <div class="contact-detail">
           <div class="contact-detail-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div class="contact-detail-text">
-            <strong>Email</strong>
-            hello@philostack.com
+            <strong data-i18n="contact.info.email.label">Email</strong>
+            <span>hello@philostack.com</span>
           </div>
         </div>
         <div class="contact-detail">
@@ -1348,8 +1656,8 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div class="contact-detail-text">
-            <strong>Location</strong>
-            Skopje, North Macedonia
+            <strong data-i18n="contact.info.location.label">Location</strong>
+            <span data-i18n="contact.info.location.value">Skopje, North Macedonia</span>
           </div>
         </div>
         <div class="contact-detail">
@@ -1357,8 +1665,8 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
           <div class="contact-detail-text">
-            <strong>Serving</strong>
-            Clients across Europe
+            <strong data-i18n="contact.info.serving.label">Serving</strong>
+            <span data-i18n="contact.info.serving.value">Clients across Europe</span>
           </div>
         </div>
         <div class="contact-detail">
@@ -1366,8 +1674,8 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <div class="contact-detail-text">
-            <strong>Response Time</strong>
-            Within 24 hours
+            <strong data-i18n="contact.info.response.label">Response Time</strong>
+            <span data-i18n="contact.info.response.value">Within 24 hours</span>
           </div>
         </div>
       </div>
@@ -1378,12 +1686,12 @@
 <!-- ════ FOOTER ════ -->
 <footer>
   <div class="container">
-    <span class="footer-brand">&copy; 2026 PhiloStack. All rights reserved.</span>
+    <span class="footer-brand" data-i18n="footer.brand">&copy; 2026 PhiloStack. All rights reserved.</span>
     <div class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#contact" data-i18n="nav.contact.mobile">Contact</a>
     </div>
   </div>
 </footer>
@@ -1392,6 +1700,246 @@
 (function() {
   // Progressive enhancement flag
   document.body.classList.add('js-ready');
+
+  // ── TRANSLATIONS ──
+  var translations = {
+    en: {
+      "nav.services": "Services",
+      "nav.work": "Work",
+      "nav.about": "About",
+      "nav.contact": "Get in Touch",
+      "nav.contact.mobile": "Contact",
+      "hero.badge": "Available for new projects",
+      "hero.h1": "We build the systems<br>your business <em>runs on</em>",
+      "hero.sub": "ERP integration, web applications, and business intelligence \u2014 engineered by people who understand how businesses actually work.",
+      "hero.cta.primary": "Start a Conversation",
+      "hero.cta.secondary": "See Our Work",
+      "hero.cta.erp": "ERP Demo",
+      "hero.cta.powerbi": "Power BI Demo",
+      "hero.cta.webapp": "Web App Demo",
+      "trust.label": "Trusted technologies we work with",
+      "services.label": "What We Do",
+      "services.title": "Four pillars, one stack",
+      "services.desc": "We don\u2019t just write code \u2014 we understand inventory, invoicing, fiscal compliance, and retail operations from the inside out.",
+      "services.erp.title": "ERP Solutions",
+      "services.erp.desc": "Custom development, integration, and consulting for Pantheon ERP and beyond. Stored procedures, triggers, and automations that keep your business flowing.",
+      "services.web.title": "Web Applications",
+      "services.web.desc": "Production-grade ASP.NET Core & Blazor web apps \u2014 inventory management, e-commerce, order fulfillment, and POS integration under one roof.",
+      "services.bi.title": "Business Intelligence",
+      "services.bi.desc": "Power BI dashboards, custom SQL views, and data pipelines that turn your raw data into decisions. See your business clearly.",
+      "services.integration.title": "System Integration",
+      "services.integration.desc": "Connecting ERPs with webstores, fiscal printers, courier APIs, and third-party systems. Automate the workflows you\u2019re still doing by hand.",
+      "work.label": "Selected Work",
+      "work.title": "Built for real operations",
+      "work.desc": "Solutions running in production right now \u2014 handling real inventory, real transactions, real revenue.",
+      "work.card1.tag": "Web App \u00b7 Retail \u00b7 ERP",
+      "work.card1.title": "Multi-Store Retail Operations Hub",
+      "work.card1.desc": "25-module platform managing inventory, POS, HR, finance, promotions, and supplier imports across multiple retail locations. Automated price adjustments, stock transfers, real-time dashboards \u2014 all wired into the core ERP.",
+      "work.card2.tag": "E-commerce \u00b7 Integration",
+      "work.card2.title": "E-Commerce Platform with ERP Bridge",
+      "work.card2.desc": "Full-stack storefront with custom loyalty program, dynamic promotions engine, regional payment gateway, and two-way ERP sync. Every online order flows directly into the ERP for invoicing, fiscal compliance, and fulfillment.",
+      "work.card3.tag": "ERP \u00b7 Manufacturing",
+      "work.card3.title": "Full-Scale Manufacturing ERP",
+      "work.card3.desc": "Ground-up enterprise system covering procurement, production with BOM and MRP, sales, quality control, HR, payroll, full double-entry accounting, CRM, and project management \u2014 with fiscal compliance and workflow automation.",
+      "work.card4.tag": "ERP \u00b7 Hospitality \u00b7 POS",
+      "work.card4.title": "Trade & Hospitality Management System",
+      "work.card4.desc": "Modular ERP with POS and fiscal printer integration, restaurant operations with floor plans and kitchen printing, full chart-of-accounts accounting, production planning with recipes, and automated document generation.",
+      "work.card5.tag": "Power BI \u00b7 Analytics",
+      "work.card5.title": "Executive Sales Dashboard",
+      "work.card5.desc": "Real-time Power BI reporting across all store locations \u2014 revenue, margins, stock levels, and payment analytics in one view.",
+      "stats.years": "Years in production systems",
+      "stats.modules": "Modules shipped to production",
+      "stats.systems": "Full-scale systems delivered",
+      "stats.uptime": "Systems running unattended",
+      "tech.label": "Technology",
+      "tech.title": "Our stack, your advantage",
+      "tech.desc": "Battle-tested technologies chosen for reliability, not hype.",
+      "about.label": "Our Story",
+      "about.quote": "We named it PhiloStack because we believe great software is built by people who genuinely <em>love the craft</em> \u2014 and understand the business behind it.",
+      "about.text1": "Based in North Macedonia with clients across Europe, PhiloStack was born from years of building and maintaining the systems that retail businesses depend on every day \u2014 from ERP automations and POS integrations to real-time analytics dashboards.",
+      "about.text2": "We\u2019re not a factory. We\u2019re a focused team that goes deep on every project, because we\u2019ve learned that the details in a stored procedure or a data model are the difference between software that works and software that transforms.",
+      "about.origin.label": "The Name",
+      "about.origin.meaning": "From Greek <strong>philos</strong> \u2014 friend, one who loves. Combined with <strong>stack</strong> \u2014 your technology foundation.<br><br>Named for Filip, whose name means <strong>\u201Clover of strength.\u201D</strong> We bring that same devotion to every system we build.",
+      "contact.label": "Let\u2019s Talk",
+      "contact.title": "Start a project with us",
+      "contact.form.name": "Name",
+      "contact.form.email": "Email",
+      "contact.form.service": "What do you need?",
+      "contact.form.service.placeholder": "Select a service...",
+      "contact.form.service.erp": "ERP Integration & Consulting",
+      "contact.form.service.web": "Web Application Development",
+      "contact.form.service.bi": "Power BI & Business Intelligence",
+      "contact.form.service.integration": "System Integration & Automation",
+      "contact.form.service.other": "Something else",
+      "contact.form.message": "Tell us about your project",
+      "contact.form.submit": "Send Message",
+      "contact.info.title": "Let\u2019s build something<br>that actually works.",
+      "contact.info.desc": "No sales pitch. Tell us what you\u2019re dealing with and we\u2019ll tell you honestly if we can help.",
+      "contact.info.email.label": "Email",
+      "contact.info.location.label": "Location",
+      "contact.info.location.value": "Skopje, North Macedonia",
+      "contact.info.serving.label": "Serving",
+      "contact.info.serving.value": "Clients across Europe",
+      "contact.info.response.label": "Response Time",
+      "contact.info.response.value": "Within 24 hours",
+      "footer.brand": "\u00a9 2026 PhiloStack. All rights reserved.",
+      "placeholder.name": "Your name",
+      "placeholder.email": "you@company.com",
+      "placeholder.message": "What systems are you running? What\u2019s the challenge you\u2019re facing?",
+      "form.success": "Thank you! We'll be in touch within 24 hours."
+    },
+    mk: {
+      "nav.services": "\u0423\u0441\u043b\u0443\u0433\u0438",
+      "nav.work": "\u041f\u0440\u043e\u0435\u043a\u0442\u0438",
+      "nav.about": "\u0417\u0430 \u043d\u0430\u0441",
+      "nav.contact": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u0438\u0440\u0430\u0458\u0442\u0435",
+      "nav.contact.mobile": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442",
+      "hero.badge": "\u0414\u043e\u0441\u0442\u0430\u043f\u043d\u0438 \u0437\u0430 \u043d\u043e\u0432\u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u0438",
+      "hero.h1": "\u0413\u0438 \u0433\u0440\u0430\u0434\u0438\u043c\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u0438\u0442\u0435<br>\u043d\u0430 \u043a\u043e\u0438 \u0432\u0430\u0448\u0438\u043e\u0442 \u0431\u0438\u0437\u043d\u0438\u0441 <em>\u0441\u0435 \u043e\u0441\u043b\u043e\u043d\u0443\u0432\u0430</em>",
+      "hero.sub": "ERP \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0458\u0430, \u0432\u0435\u0431 \u0430\u043f\u043b\u0438\u043a\u0430\u0446\u0438\u0438 \u0438 \u0434\u0435\u043b\u043e\u0432\u043d\u0430 \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 \u2014 \u043e\u0434 \u043b\u0443\u0453\u0435 \u043a\u043e\u0438 \u0440\u0430\u0437\u0431\u0438\u0440\u0430\u0430\u0442 \u043a\u0430\u043a\u043e \u0444\u0443\u043d\u043a\u0446\u0438\u043e\u043d\u0438\u0440\u0430\u0430\u0442 \u0431\u0438\u0437\u043d\u0438\u0441\u0438\u0442\u0435.",
+      "hero.cta.primary": "\u0417\u0430\u043f\u043e\u0447\u043d\u0435\u0442\u0435 \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440",
+      "hero.cta.secondary": "\u041d\u0430\u0448\u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u0438",
+      "hero.cta.erp": "ERP \u0434\u0435\u043c\u043e",
+      "hero.cta.powerbi": "Power BI \u0434\u0435\u043c\u043e",
+      "hero.cta.webapp": "\u0412\u0435\u0431 \u0434\u0435\u043c\u043e",
+      "trust.label": "\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438 \u0441\u043e \u043a\u043e\u0438 \u0440\u0430\u0431\u043e\u0442\u0438\u043c\u0435",
+      "services.label": "\u0428\u0442\u043e \u043d\u0443\u0434\u0438\u043c\u0435",
+      "services.title": "\u0427\u0435\u0442\u0438\u0440\u0438 \u043f\u0440\u0430\u0432\u0446\u0438, \u0435\u0434\u043d\u0430 \u0446\u0435\u043b",
+      "services.desc": "\u041d\u0435 \u043f\u0438\u0448\u0443\u0432\u0430\u043c\u0435 \u0441\u0430\u043c\u043e \u043a\u043e\u0434 \u2014 \u0440\u0430\u0437\u0431\u0438\u0440\u0430\u043c\u0435 \u043b\u0430\u0433\u0435\u0440, \u0444\u0430\u043a\u0442\u0443\u0440\u0438\u0440\u0430\u045a\u0435, \u0444\u0438\u0441\u043a\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u0458\u0430 \u0438 \u043c\u0430\u043b\u043e\u043f\u0440\u043e\u0434\u0430\u0436\u0431\u0430 \u043e\u0434\u0432\u043d\u0430\u0442\u0440\u0435.",
+      "services.erp.title": "ERP \u0420\u0435\u0448\u0435\u043d\u0438\u0458\u0430",
+      "services.erp.desc": "\u041f\u0440\u0438\u043b\u0430\u0433\u043e\u0434\u0435\u043d \u0440\u0430\u0437\u0432\u043e\u0458, \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0458\u0430 \u0438 \u043a\u043e\u043d\u0441\u0443\u043b\u0442\u0430\u043d\u0442\u0441\u043a\u0438 \u0443\u0441\u043b\u0443\u0433\u0438 \u0437\u0430 Pantheon ERP \u0438 \u043f\u043e\u0448\u0438\u0440\u043e\u043a\u043e. \u0421\u043a\u043b\u0430\u0434\u0438\u0440\u0430\u043d\u0438 \u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u0438, \u0442\u0440\u0438\u0433\u0435\u0440\u0438 \u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0438 \u043a\u043e\u0438 \u0433\u043e \u0434\u0432\u0438\u0436\u0430\u0442 \u0432\u0430\u0448\u0438\u043e\u0442 \u0431\u0438\u0437\u043d\u0438\u0441.",
+      "services.web.title": "\u0412\u0435\u0431 \u0410\u043f\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+      "services.web.desc": "\u041f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0441\u043a\u0438 ASP.NET Core \u0438 Blazor \u0432\u0435\u0431 \u0430\u043f\u043b\u0438\u043a\u0430\u0446\u0438\u0438 \u2014 \u043c\u0430\u0433\u0430\u0446\u0438\u043d\u0441\u043a\u043e \u0440\u0430\u0431\u043e\u0442\u0435\u045a\u0435, \u0435-\u0442\u0440\u0433\u043e\u0432\u0438\u0458\u0430, \u0438\u0441\u043f\u043e\u0440\u0430\u043a\u0430 \u043d\u0430 \u043d\u0430\u0440\u0430\u0447\u043a\u0438 \u0438 POS \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0458\u0430 \u043f\u043e\u0434 \u0435\u0434\u0435\u043d \u043a\u0440\u043e\u0432.",
+      "services.bi.title": "\u0414\u0435\u043b\u043e\u0432\u043d\u0430 \u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430",
+      "services.bi.desc": "Power BI \u043f\u0440\u0435\u0433\u043b\u0435\u0434\u0438, SQL \u0438\u0437\u0432\u0435\u0448\u0442\u0430\u0438 \u0438 \u043f\u043e\u0434\u0430\u0442\u043e\u0447\u043d\u0438 \u043f\u0440\u043e\u0442\u043e\u0446\u0438 \u043a\u043e\u0438 \u0433\u0438 \u043f\u0440\u0435\u0442\u0432\u043e\u0440\u0430\u0430\u0442 \u0441\u0443\u0440\u043e\u0432\u0438\u0442\u0435 \u043f\u043e\u0434\u0430\u0442\u043e\u0446\u0438 \u0432\u043e \u043e\u0434\u043b\u0443\u043a\u0438. \u0412\u0438\u0434\u0435\u0442\u0435 \u0433\u043e \u0432\u0430\u0448\u0438\u043e\u0442 \u0431\u0438\u0437\u043d\u0438\u0441 \u0458\u0430\u0441\u043d\u043e.",
+      "services.integration.title": "\u041f\u043e\u0432\u0440\u0437\u0443\u0432\u0430\u045a\u0435 \u043d\u0430 \u0441\u0438\u0441\u0442\u0435\u043c\u0438",
+      "services.integration.desc": "\u041f\u043e\u0432\u0440\u0437\u0443\u0432\u0430\u045a\u0435 \u043d\u0430 ERP \u0441\u043e \u0432\u0435\u0431-\u043f\u0440\u043e\u0434\u0430\u0432\u043d\u0438\u0446\u0438, \u0444\u0438\u0441\u043a\u0430\u043b\u043d\u0438 \u043f\u0435\u0447\u0430\u0442\u0430\u0447\u0438, \u043a\u0443\u0440\u0438\u0440\u0441\u043a\u0438 \u0441\u0435\u0440\u0432\u0438\u0441\u0438 \u0438 \u0434\u0440\u0443\u0433\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0438. \u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0438\u0440\u0430\u0458\u0442\u0435 \u0433\u0438 \u043f\u0440\u043e\u0446\u0435\u0441\u0438\u0442\u0435 \u043a\u043e\u0438 \u0441\u0435\u0443\u0448\u0442\u0435 \u0433\u0438 \u043f\u0440\u0430\u0432\u0438\u0442\u0435 \u0440\u0430\u0447\u043d\u043e.",
+      "work.label": "\u041d\u0430\u0448\u0438 \u041f\u0440\u043e\u0435\u043a\u0442\u0438",
+      "work.title": "\u0413\u0440\u0430\u0434\u0435\u043d\u043e \u0437\u0430 \u0440\u0435\u0430\u043b\u043d\u0438 \u043f\u043e\u0442\u0440\u0435\u0431\u0438",
+      "work.desc": "\u0420\u0435\u0448\u0435\u043d\u0438\u0458\u0430 \u043a\u043e\u0438 \u0432\u0435\u045c\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0442 \u0432\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0458\u0430 \u2014 \u0440\u0435\u0430\u043b\u0435\u043d \u043b\u0430\u0433\u0435\u0440, \u0440\u0435\u0430\u043b\u043d\u0438 \u043f\u0440\u043e\u043c\u0435\u0442\u0438, \u0440\u0435\u0430\u043b\u0435\u043d \u043f\u0440\u0438\u0445\u043e\u0434.",
+      "work.card1.tag": "\u0412\u0435\u0431 \u00b7 \u041c\u0430\u043b\u043e\u043f\u0440\u043e\u0434\u0430\u0436\u0431\u0430 \u00b7 ERP",
+      "work.card1.title": "\u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 \u0437\u0430 \u043c\u0430\u043b\u043e\u043f\u0440\u043e\u0434\u0430\u0436\u0431\u0430",
+      "work.card1.desc": "\u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 \u0441\u043e 25 \u043c\u043e\u0434\u0443\u043b\u0438 \u0437\u0430 \u043c\u0430\u0433\u0430\u0446\u0438\u043d\u0441\u043a\u043e \u0440\u0430\u0431\u043e\u0442\u0435\u045a\u0435, \u043a\u0430\u0441\u0430, \u0427\u0420, \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0438, \u043f\u0440\u043e\u043c\u043e\u0446\u0438\u0438 \u0438 \u0443\u0432\u043e\u0437 \u043e\u0434 \u0434\u043e\u0431\u0430\u0432\u0443\u0432\u0430\u0447\u0438 \u043d\u0438\u0437 \u043f\u043e\u0432\u0435\u045c\u0435 \u043f\u0440\u043e\u0434\u0430\u0432\u043d\u0438\u0446\u0438. \u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0441\u043a\u043e \u0446\u0435\u043d\u043e\u0432\u043d\u0438\u0446\u0438, \u043f\u0440\u0435\u043d\u043e\u0441 \u043d\u0430 \u0437\u0430\u043b\u0438\u0445\u0438, \u043f\u0440\u0435\u0433\u043b\u0435\u0434\u0438 \u0432\u043e \u0440\u0435\u0430\u043b\u043d\u043e \u0432\u0440\u0435\u043c\u0435 \u2014 \u0441\u0435\u0442\u043e \u043f\u043e\u0432\u0440\u0437\u0430\u043d\u043e \u0441\u043e ERP.",
+      "work.card2.tag": "\u0415-\u0442\u0440\u0433\u043e\u0432\u0438\u0458\u0430 \u00b7 \u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0458\u0430",
+      "work.card2.title": "\u0415-\u0442\u0440\u0433\u043e\u0432\u0438\u0458\u0430 \u043f\u043e\u0432\u0440\u0437\u0430\u043d\u0430 \u0441\u043e ERP",
+      "work.card2.desc": "\u041a\u043e\u043c\u043f\u043b\u0435\u0442\u043d\u0430 \u043e\u043d\u043b\u0430\u0458\u043d \u043f\u0440\u043e\u0434\u0430\u0432\u043d\u0438\u0446\u0430 \u0441\u043e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u0430 \u0437\u0430 \u043b\u043e\u0458\u0430\u043b\u043d\u043e\u0441\u0442, \u0434\u0438\u043d\u0430\u043c\u0438\u0447\u043a\u0438 \u043f\u0440\u043e\u043c\u043e\u0446\u0438\u0438, \u043b\u043e\u043a\u0430\u043b\u043d\u043e \u043f\u043b\u0430\u045c\u0430\u045a\u0435 \u0438 \u0434\u0432\u043e\u043d\u0430\u0441\u043e\u0447\u043d\u0430 \u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0430\u0446\u0438\u0458\u0430 \u0441\u043e ERP. \u0421\u0435\u043a\u043e\u0458\u0430 \u043d\u0430\u0440\u0430\u0447\u043a\u0430 \u043e\u0434\u0438 \u0434\u0438\u0440\u0435\u043a\u0442\u043d\u043e \u0432\u043e ERP \u0437\u0430 \u0444\u0430\u043a\u0442\u0443\u0440\u0438\u0440\u0430\u045a\u0435, \u0444\u0438\u0441\u043a\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u0458\u0430 \u0438 \u0438\u0441\u043f\u043e\u0440\u0430\u043a\u0430.",
+      "work.card3.tag": "ERP \u00b7 \u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e",
+      "work.card3.title": "\u041a\u043e\u043c\u043f\u043b\u0435\u0442\u0435\u043d \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d ERP",
+      "work.card3.desc": "\u0421\u0438\u0441\u0442\u0435\u043c \u0438\u0437\u0433\u0440\u0430\u0434\u0435\u043d \u043e\u0434 \u043d\u0443\u043b\u0430 \u043a\u043e\u0458 \u043f\u043e\u043a\u0440\u0438\u0432\u0430 \u043d\u0430\u0431\u0430\u0432\u043a\u0430, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u0441\u043e \u043d\u043e\u0440\u043c\u0430\u0442\u0438\u0432\u0438 \u0438 \u043f\u043b\u0430\u043d\u0438\u0440\u0430\u045a\u0435, \u043f\u0440\u043e\u0434\u0430\u0436\u0431\u0430, \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u0430 \u043d\u0430 \u043a\u0432\u0430\u043b\u0438\u0442\u0435\u0442, \u0427\u0420, \u043f\u043b\u0430\u0442\u0438, \u043a\u043e\u043c\u043f\u043b\u0435\u0442\u043d\u043e \u0434\u0432\u043e\u0458\u043d\u043e \u043a\u043d\u0438\u0433\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e, CRM \u0438 \u0443\u043f\u0440\u0430\u0432\u0443\u0432\u0430\u045a\u0435 \u0441\u043e \u043f\u0440\u043e\u0435\u043a\u0442\u0438 \u2014 \u0441\u043e \u0444\u0438\u0441\u043a\u0430\u043b\u043d\u0430 \u0443\u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d\u043e\u0441\u0442 \u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0458\u0430 \u043d\u0430 \u043f\u0440\u043e\u0446\u0435\u0441\u0438.",
+      "work.card4.tag": "ERP \u00b7 \u0423\u0433\u043e\u0441\u0442\u0438\u0442\u0435\u043b\u0441\u0442\u0432\u043e \u00b7 POS",
+      "work.card4.title": "\u0422\u0440\u0433\u043e\u0432\u0441\u043a\u043e-\u0443\u0433\u043e\u0441\u0442\u0438\u0442\u0435\u043b\u0441\u043a\u0438 \u0441\u0438\u0441\u0442\u0435\u043c",
+      "work.card4.desc": "\u041c\u043e\u0434\u0443\u043b\u0430\u0440\u0435\u043d ERP \u0441\u043e \u043a\u0430\u0441\u0430 \u0438 \u0444\u0438\u0441\u043a\u0430\u043b\u0435\u043d \u043f\u0435\u0447\u0430\u0442\u0430\u0447, \u0440\u0435\u0441\u0442\u043e\u0440\u0430\u043d\u0441\u043a\u043e \u0440\u0430\u0431\u043e\u0442\u0435\u045a\u0435 \u0441\u043e \u043f\u043b\u0430\u043d \u043d\u0430 \u0441\u0430\u043b\u0430 \u0438 \u043a\u0443\u0458\u043d\u0441\u043a\u043e \u043f\u0435\u0447\u0430\u0442\u0435\u045a\u0435, \u043a\u043e\u043c\u043f\u043b\u0435\u0442\u043d\u043e \u043a\u043d\u0438\u0433\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u0441\u043e \u043a\u043e\u043d\u0442\u0435\u043d \u043f\u043b\u0430\u043d, \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u0441\u043e \u0440\u0435\u0446\u0435\u043f\u0442\u0443\u0440\u0438 \u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0441\u043a\u043e \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0430\u045a\u0435 \u043d\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0438.",
+      "work.card5.tag": "Power BI \u00b7 \u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430",
+      "work.card5.title": "\u041f\u0440\u0435\u0433\u043b\u0435\u0434 \u043d\u0430 \u043f\u0440\u043e\u0434\u0430\u0436\u0431\u0430",
+      "work.card5.desc": "Power BI \u0438\u0437\u0432\u0435\u0448\u0442\u0430\u0438 \u0432\u043e \u0440\u0435\u0430\u043b\u043d\u043e \u0432\u0440\u0435\u043c\u0435 \u043d\u0438\u0437 \u0441\u0438\u0442\u0435 \u043f\u0440\u043e\u0434\u0430\u0432\u043d\u0438\u0446\u0438 \u2014 \u043f\u0440\u0438\u0445\u043e\u0434\u0438, \u043c\u0430\u0440\u0436\u0438, \u0437\u0430\u043b\u0438\u0445\u0438 \u0438 \u043f\u043b\u0430\u0442\u0435\u0436\u043d\u0430 \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 \u0432\u043e \u0435\u0434\u0435\u043d \u043f\u0440\u0435\u0433\u043b\u0435\u0434.",
+      "stats.years": "\u0413\u043e\u0434\u0438\u043d\u0438 \u0432\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0441\u043a\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0438",
+      "stats.modules": "\u041c\u043e\u0434\u0443\u043b\u0438 \u0432\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0446\u0438\u0458\u0430",
+      "stats.systems": "\u0418\u0441\u043f\u043e\u0440\u0430\u0447\u0430\u043d\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0438",
+      "stats.uptime": "\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0440\u0430\u0431\u043e\u0442\u0430\u0442 \u0431\u0435\u0437 \u043f\u0440\u0435\u043a\u0438\u043d",
+      "tech.label": "\u0422\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438",
+      "tech.title": "\u041d\u0430\u0448\u0438 \u0430\u043b\u0430\u0442\u043a\u0438, \u0432\u0430\u0448\u0430 \u043f\u0440\u0435\u0434\u043d\u043e\u0441\u0442",
+      "tech.desc": "\u0418\u0441\u043f\u0440\u043e\u0431\u0430\u043d\u0438 \u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438 \u0438\u0437\u0431\u0440\u0430\u043d\u0438 \u0437\u0430 \u0441\u0438\u0433\u0443\u0440\u043d\u043e\u0441\u0442, \u043d\u0435 \u0437\u0430 \u0442\u0440\u0435\u043d\u0434.",
+      "about.label": "\u041d\u0430\u0448\u0430 \u043f\u0440\u0438\u043a\u0430\u0437\u043d\u0430",
+      "about.quote": "\u0413\u043e \u043d\u0430\u0440\u0435\u043a\u043e\u0432\u043c\u0435 PhiloStack \u0437\u0430\u0442\u043e\u0430 \u0448\u0442\u043e \u0432\u0435\u0440\u0443\u0432\u0430\u043c\u0435 \u0434\u0435\u043a\u0430 \u043e\u0434\u043b\u0438\u0447\u0435\u043d \u0441\u043e\u0444\u0442\u0432\u0435\u0440 \u0433\u0440\u0430\u0434\u0430\u0442 \u043b\u0443\u0453\u0435 \u043a\u043e\u0438 \u0438\u0441\u043a\u0440\u0435\u043d\u043e \u0433\u043e <em>\u0441\u0430\u043a\u0430\u0430\u0442 \u0437\u0430\u043d\u0430\u0435\u0442\u043e\u0442</em> \u2014 \u0438 \u0433\u043e \u0440\u0430\u0437\u0431\u0438\u0440\u0430\u0430\u0442 \u0431\u0438\u0437\u043d\u0438\u0441\u043e\u0442 \u0437\u0430\u0434 \u043d\u0435\u0433\u043e.",
+      "about.text1": "\u0421\u043e \u0441\u0435\u0434\u0438\u0448\u0442\u0435 \u0432\u043e \u0421\u043a\u043e\u043f\u0458\u0435 \u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0438 \u043d\u0438\u0437 \u0415\u0432\u0440\u043e\u043f\u0430, PhiloStack \u043d\u0430\u0441\u0442\u0430\u043d\u0430 \u043e\u0434 \u0433\u043e\u0434\u0438\u043d\u0438 \u0433\u0440\u0430\u0434\u0435\u045a\u0435 \u0438 \u043e\u0434\u0440\u0436\u0443\u0432\u0430\u045a\u0435 \u043d\u0430 \u0441\u0438\u0441\u0442\u0435\u043c\u0438\u0442\u0435 \u043d\u0430 \u043a\u043e\u0438 \u0442\u0440\u0433\u043e\u0432\u0441\u043a\u0438\u0442\u0435 \u0444\u0438\u0440\u043c\u0438 \u0441\u0435 \u043e\u0441\u043b\u043e\u043d\u0443\u0432\u0430\u0430\u0442 \u0441\u0435\u043a\u043e\u0458\u0434\u043d\u0435\u0432\u043d\u043e \u2014 \u043e\u0434 ERP \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0438 \u0438 \u043a\u0430\u0441\u0438 \u0434\u043e \u0438\u0437\u0432\u0435\u0448\u0442\u0430\u0438 \u0432\u043e \u0440\u0435\u0430\u043b\u043d\u043e \u0432\u0440\u0435\u043c\u0435.",
+      "about.text2": "\u041d\u0435 \u0441\u043c\u0435 \u0444\u0430\u0431\u0440\u0438\u043a\u0430. \u0421\u043c\u0435 \u043f\u043e\u0441\u0432\u0435\u0442\u0435\u043d \u0442\u0438\u043c \u043a\u043e\u0458 \u043d\u0430\u0432\u043b\u0435\u0433\u0443\u0432\u0430 \u0434\u043b\u0430\u0431\u043e\u043a\u043e \u0432\u043e \u0441\u0435\u043a\u043e\u0458 \u043f\u0440\u043e\u0435\u043a\u0442, \u0437\u0430\u0442\u043e\u0430 \u0448\u0442\u043e \u043d\u0430\u0443\u0447\u0438\u0432\u043c\u0435 \u0434\u0435\u043a\u0430 \u0434\u0435\u0442\u0430\u043b\u0438\u0442\u0435 \u0432\u043e \u0435\u0434\u043d\u0430 \u0441\u043a\u043b\u0430\u0434\u0438\u0440\u0430\u043d\u0430 \u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u0430 \u0438\u043b\u0438 \u043f\u043e\u0434\u0430\u0442\u043e\u0447\u0435\u043d \u043c\u043e\u0434\u0435\u043b \u0441\u0435 \u0440\u0430\u0437\u043b\u0438\u043a\u0430\u0442\u0430 \u043c\u0435\u0453\u0443 \u0441\u043e\u0444\u0442\u0432\u0435\u0440 \u043a\u043e\u0458 \u0440\u0430\u0431\u043e\u0442\u0438 \u0438 \u0441\u043e\u0444\u0442\u0432\u0435\u0440 \u043a\u043e\u0458 \u0442\u0440\u0430\u043d\u0441\u0444\u043e\u0440\u043c\u0438\u0440\u0430.",
+      "about.origin.label": "\u0418\u043c\u0435\u0442\u043e",
+      "about.origin.meaning": "\u041e\u0434 \u0433\u0440\u0447\u043a\u0438 <strong>philos</strong> \u2014 \u043f\u0440\u0438\u0458\u0430\u0442\u0435\u043b, \u043e\u043d\u043e\u0458 \u043a\u043e\u0458 \u0441\u0430\u043a\u0430. \u041a\u043e\u043c\u0431\u0438\u043d\u0438\u0440\u0430\u043d\u043e \u0441\u043e <strong>stack</strong> \u2014 \u0432\u0430\u0448\u0430\u0442\u0430 \u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0448\u043a\u0430 \u043e\u0441\u043d\u043e\u0432\u0430.<br><br>\u0418\u043c\u0435\u043d\u0443\u0432\u0430\u043d\u043e \u043f\u043e \u0424\u0438\u043b\u0438\u043f, \u0447\u0438\u0435 \u0438\u043c\u0435 \u0437\u043d\u0430\u0447\u0438 <strong>\u201E\u0459\u0443\u0431\u0438\u0442\u0435\u043b \u043d\u0430 \u0441\u0438\u043b\u0430.\u201C</strong> \u0422\u0430\u0430 \u0438\u0441\u0442\u0430 \u043f\u043e\u0441\u0432\u0435\u0442\u0435\u043d\u043e\u0441\u0442 \u0458\u0430 \u0432\u043d\u0435\u0441\u0443\u0432\u0430\u043c\u0435 \u0432\u043e \u0441\u0435\u043a\u043e\u0458 \u0441\u0438\u0441\u0442\u0435\u043c \u043a\u043e\u0458 \u0433\u043e \u0433\u0440\u0430\u0434\u0438\u043c\u0435.",
+      "contact.label": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442",
+      "contact.title": "\u0417\u0430\u043f\u043e\u0447\u043d\u0435\u0442\u0435 \u043f\u0440\u043e\u0435\u043a\u0442 \u0441\u043e \u043d\u0430\u0441",
+      "contact.form.name": "\u0418\u043c\u0435",
+      "contact.form.email": "\u0415-\u043f\u043e\u0448\u0442\u0430",
+      "contact.form.service": "\u0428\u0442\u043e \u0432\u0438 \u0442\u0440\u0435\u0431\u0430?",
+      "contact.form.service.placeholder": "\u0418\u0437\u0431\u0435\u0440\u0435\u0442\u0435 \u0443\u0441\u043b\u0443\u0433\u0430...",
+      "contact.form.service.erp": "ERP \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0458\u0430 \u0438 \u043a\u043e\u043d\u0441\u0443\u043b\u0442\u0430\u0446\u0438\u0438",
+      "contact.form.service.web": "\u0420\u0430\u0437\u0432\u043e\u0458 \u043d\u0430 \u0432\u0435\u0431 \u0430\u043f\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+      "contact.form.service.bi": "Power BI \u0438 \u0434\u0435\u043b\u043e\u0432\u043d\u0430 \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430",
+      "contact.form.service.integration": "\u041f\u043e\u0432\u0440\u0437\u0443\u0432\u0430\u045a\u0435 \u043d\u0430 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0458\u0430",
+      "contact.form.service.other": "\u041d\u0435\u0448\u0442\u043e \u0434\u0440\u0443\u0433\u043e",
+      "contact.form.message": "\u041a\u0430\u0436\u0435\u0442\u0435 \u043d\u0438 \u0437\u0430 \u0432\u0430\u0448\u0438\u043e\u0442 \u043f\u0440\u043e\u0435\u043a\u0442",
+      "contact.form.submit": "\u0418\u0441\u043f\u0440\u0430\u0442\u0438 \u043f\u043e\u0440\u0430\u043a\u0430",
+      "contact.info.title": "\u0414\u0430 \u0438\u0437\u0433\u0440\u0430\u0434\u0438\u043c\u0435 \u043d\u0435\u0448\u0442\u043e<br>\u0448\u0442\u043e \u0432\u0438\u0441\u0442\u0438\u043d\u0441\u043a\u0438 \u0440\u0430\u0431\u043e\u0442\u0438.",
+      "contact.info.desc": "\u0411\u0435\u0437 \u043f\u0440\u043e\u0434\u0430\u0436\u043d\u0438 \u0444\u043e\u0440\u0438. \u041a\u0430\u0436\u0435\u0442\u0435 \u043d\u0438 \u0441\u043e \u0448\u0442\u043e \u0441\u0435 \u0441\u043e\u043e\u0447\u0443\u0432\u0430\u0442\u0435 \u0438 \u0447\u0435\u0441\u043d\u043e \u045c\u0435 \u0432\u0438 \u043a\u0430\u0436\u0435\u043c\u0435 \u0434\u0430\u043b\u0438 \u043c\u043e\u0436\u0435\u043c\u0435 \u0434\u0430 \u043f\u043e\u043c\u043e\u0433\u043d\u0435\u043c\u0435.",
+      "contact.info.email.label": "\u0415-\u043f\u043e\u0448\u0442\u0430",
+      "contact.info.location.label": "\u041b\u043e\u043a\u0430\u0446\u0438\u0458\u0430",
+      "contact.info.location.value": "\u0421\u043a\u043e\u043f\u0458\u0435, \u0421\u0435\u0432\u0435\u0440\u043d\u0430 \u041c\u0430\u043a\u0435\u0434\u043e\u043d\u0438\u0458\u0430",
+      "contact.info.serving.label": "\u041e\u043f\u0441\u043b\u0443\u0436\u0443\u0432\u0430\u043c\u0435",
+      "contact.info.serving.value": "\u041a\u043b\u0438\u0435\u043d\u0442\u0438 \u043d\u0438\u0437 \u0415\u0432\u0440\u043e\u043f\u0430",
+      "contact.info.response.label": "\u0412\u0440\u0435\u043c\u0435 \u043d\u0430 \u043e\u0434\u0433\u043e\u0432\u043e\u0440",
+      "contact.info.response.value": "\u0412\u043e \u0440\u043e\u043a \u043e\u0434 24 \u0447\u0430\u0441\u0430",
+      "footer.brand": "\u00a9 2026 PhiloStack. \u0421\u0438\u0442\u0435 \u043f\u0440\u0430\u0432\u0430 \u0441\u0435 \u0437\u0430\u0434\u0440\u0436\u0430\u043d\u0438.",
+      "placeholder.name": "\u0412\u0430\u0448\u0435 \u0438\u043c\u0435",
+      "placeholder.email": "vie@firma.mk",
+      "placeholder.message": "\u041a\u043e\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0433\u0438 \u043a\u043e\u0440\u0438\u0441\u0442\u0438\u0442\u0435? \u0421\u043e \u043a\u043e\u0458 \u043f\u0440\u0435\u0434\u0438\u0437\u0432\u0438\u043a \u0441\u0435 \u0441\u043e\u043e\u0447\u0443\u0432\u0430\u0442\u0435?",
+      "form.success": "\u0412\u0438 \u0431\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u0438\u043c\u0435! \u0416\u0435 \u0432\u0435 \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u0438\u0440\u0430\u043c\u0435 \u0432\u043e \u0440\u043e\u043a \u043e\u0434 24 \u0447\u0430\u0441\u0430."
+    }
+  };
+
+  // ── LANGUAGE TOGGLE ──
+  function setLanguage(lang) {
+    var t = translations[lang];
+    if (!t) return;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+    });
+    document.documentElement.lang = lang === 'mk' ? 'mk' : 'en';
+    document.querySelectorAll('.lang-toggle').forEach(function(btn) {
+      btn.setAttribute('data-active-lang', lang);
+    });
+    window._formSuccessMsg = t['form.success'];
+    localStorage.setItem('ps-lang', lang);
+  }
+
+  function initLang() {
+    var saved = localStorage.getItem('ps-lang');
+    if (saved && translations[saved]) {
+      setLanguage(saved);
+    } else {
+      window._formSuccessMsg = translations.en['form.success'];
+    }
+  }
+
+  document.querySelectorAll('.lang-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var current = localStorage.getItem('ps-lang') || 'en';
+      var next = current === 'en' ? 'mk' : 'en';
+      setLanguage(next);
+    });
+  });
+
+  initLang();
+
+  // ── DARK MODE TOGGLE ──
+  function toggleTheme() {
+    var html = document.documentElement;
+    html.classList.add('theme-transitioning');
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('ps-theme', next);
+    setTimeout(function() {
+      html.classList.remove('theme-transitioning');
+    }, 400);
+  }
+
+  document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+    btn.addEventListener('click', toggleTheme);
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('ps-theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
 
   // ── Scroll Reveal ──
   var observer = new IntersectionObserver(function(entries) {
